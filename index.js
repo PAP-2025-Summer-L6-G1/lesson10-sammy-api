@@ -18,7 +18,7 @@ const port = process.env.PORT || 3002;
 app.use(
     cors({
         // EXERCISE 4.7
-        origin: ["https://localhost:3000", "https://cfa-summer20252025-sammygiang-www.netlify.app/"],
+        origin: ["https://localhost:3000", "https://cfa-summer20252025-sammygiang-www.netlify.app"],
         credentials: true,
     })
 );
