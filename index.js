@@ -215,8 +215,10 @@ const start = async () => {
 
         // EXERCISES 4.4 - 4.6
         // app.listen(port, () => console.log(`Server running on port ${port}...`));
-        if (process.send.NODE_ENV === "production") {
-            app.listen(port, () => {console.log("server running on port: " + port)})
+        if (process.env.NODE_ENV === "production") {
+            app.listen(port, () => {
+                console.log("server running on port: " + port)
+            })
         } else {
             const httpsOptions = {
                 key: fs.readFileSync(path.resolve(__dirname, '../localhost-key.pem')),
