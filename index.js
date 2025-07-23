@@ -18,7 +18,7 @@ const port = process.env.PORT || 3002;
 app.use(
     cors({
         // EXERCISE 4.7
-        origin: "https://localhost:3000",
+        origin: ["https://localhost:3000", "https://cfa-summer20252025-sammygiang-www.netlify.app/"],
         credentials: true,
     })
 );
@@ -215,14 +215,17 @@ const start = async () => {
 
         // EXERCISES 4.4 - 4.6
         // app.listen(port, () => console.log(`Server running on port ${port}...`));
-
-        const httpsOptions = {
-            key: fs.readFileSync(path.resolve(__dirname, '../localhost-key.pem')),
-            cert: fs.readFileSync(path.resolve(__dirname, '../localhost.pem'))
-        };
-        https.createServer(httpsOptions, app).listen(port, () => {
-            console.log(`Express API server running on https://localhost:${port}`);
-        });
+        if (process.send.NODE_ENV === "production") {
+            app.listen(port, () => {console.log("server running on port: " + port)})
+        } else {
+            const httpsOptions = {
+                key: fs.readFileSync(path.resolve(__dirname, '../localhost-key.pem')),
+                cert: fs.readFileSync(path.resolve(__dirname, '../localhost.pem'))
+            };
+            https.createServer(httpsOptions, app).listen(port, () => {
+                console.log(`Express API server running on https://localhost:${port}`);
+            });
+        }
     }
     catch (err) {
         console.error(err);
